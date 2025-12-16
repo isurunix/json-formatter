@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>JSON Formatter</h1>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container" id="searchContainer" style="display: none;">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search in JSON..." 
+        autocomplete="off"
+      />
+      <div class="search-controls">
+        <button id="prevBtn" title="Previous match">↑</button>
+        <button id="nextBtn" title="Next match">↓</button>
+        <span id="matchCounter">0/0</span>
+      </div>
+    </div>
+
+    <!-- JSON Display Area -->
+    <div class="content">
+      <div id="jsonDisplay" class="json-display">
+        <p class="placeholder">Select JSON text on a webpage and choose "View Formatted JSON" from the context menu.</p>
+      </div>
+      <div id="errorDisplay" class="error-display" style="display: none;">
+        <h3>❌ Invalid JSON</h3>
+        <p id="errorMessage"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

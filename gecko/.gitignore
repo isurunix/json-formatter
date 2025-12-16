@@ -1,0 +1,35 @@
+# Development notes
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Build artifacts (for when you add a build process)
+dist/
+build/
+*.zip
+
+# Node modules (if you add npm packages later)
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Web extension packaging
+web-ext-artifacts/

@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  background-color: #252526;
+  padding: 12px 16px;
+  border-bottom: 1px solid #3e3e42;
+}
+
+header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #252526;
+  border-bottom: 1px solid #3e3e42;
+}
+
+#searchInput {
+  flex: 1;
+  padding: 6px 10px;
+  background-color: #3c3c3c;
+  border: 1px solid #3e3e42;
+  border-radius: 3px;
+  color: #cccccc;
+  font-size: 13px;
+  outline: none;
+}
+
+#searchInput:focus {
+  border-color: #007acc;
+  background-color: #454545;
+}
+
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.search-controls button {
+  width: 28px;
+  height: 28px;
+  background-color: #3c3c3c;
+  border: 1px solid #3e3e42;
+  border-radius: 3px;
+  color: #cccccc;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.search-controls button:hover {
+  background-color: #505050;
+}
+
+.search-controls button:active {
+  background-color: #007acc;
+}
+
+#matchCounter {
+  font-size: 12px;
+  color: #858585;
+  min-width: 50px;
+  text-align: center;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.json-display {
+  width: 100%;
+}
+
+.json-display pre {
+  margin: 0;
+  padding: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.placeholder {
+  color: #858585;
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+
+/* JSON Syntax Highlighting */
+.json-key {
+  color: #9cdcfe;
+  font-weight: 500;
+}
+
+.json-string {
+  color: #ce9178;
+}
+
+.json-number {
+  color: #b5cea8;
+}
+
+.json-boolean {
+  color: #569cd6;
+  font-weight: 600;
+}
+
+.json-null {
+  color: #569cd6;
+  font-weight: 600;
+}
+
+/* Search Highlighting */
+.search-highlight {
+  background-color: #613a00;
+  border-radius: 2px;
+  padding: 1px 2px;
+}
+
+.search-highlight.current {
+  background-color: #f09000;
+  color: #000000;
+  font-weight: 600;
+}
+
+/* Error Display */
+.error-display {
+  background-color: #3a1f1f;
+  border: 1px solid #8b3333;
+  border-radius: 4px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.error-display h3 {
+  color: #f48771;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.error-display p {
+  color: #d4d4d4;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #424242 #1e1e1e;
+}
