@@ -35,7 +35,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "json-formatter@example.com",
+      "id": "json-formatter@isurubuddhika.dev",
       "strict_min_version": "57.0"
     }
   }
