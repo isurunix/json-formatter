@@ -55,7 +55,13 @@ function displayJSON(jsonString) {
     console.log("Displaying formatted JSON");
     
     // Display the formatted JSON
-    jsonDisplay.innerHTML = `<pre>${formattedHTML}</pre>`;
+    // Clear previous content
+    while (jsonDisplay.firstChild) {
+      jsonDisplay.removeChild(jsonDisplay.firstChild);
+    }
+    const pre = document.createElement('pre');
+    pre.innerHTML = formattedHTML; // Safe here as formattedHTML is sanitized by syntaxHighlight
+    jsonDisplay.appendChild(pre);
     jsonDisplay.style.display = 'block';
     errorDisplay.style.display = 'none';
     searchContainer.style.display = 'flex';
@@ -82,7 +88,14 @@ function showPlaceholder() {
   const searchContainer = document.getElementById('searchContainer');
   
   currentJsonString = '';
-  jsonDisplay.innerHTML = '<p class="placeholder">Select JSON text on a webpage and choose "View Formatted JSON" from the context menu.</p>';
+  // Clear previous content
+  while (jsonDisplay.firstChild) {
+    jsonDisplay.removeChild(jsonDisplay.firstChild);
+  }
+  const placeholder = document.createElement('p');
+  placeholder.className = 'placeholder';
+  placeholder.textContent = 'Select JSON text on a webpage and choose "View Formatted JSON" from the context menu.';
+  jsonDisplay.appendChild(placeholder);
   jsonDisplay.style.display = 'block';
   errorDisplay.style.display = 'none';
   searchContainer.style.display = 'none';
@@ -217,7 +230,9 @@ function handleSearch() {
   currentMatches = [];
   
   const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = originalHTML;
+  const tempPre = document.createElement('pre');
+  tempPre.innerHTML = originalHTML; // Safe: originalHTML is from syntaxHighlight which sanitizes
+  tempDiv.appendChild(tempPre);
   const textContent = tempDiv.textContent;
   
   while ((match = regex.exec(textContent)) !== null) {
@@ -230,7 +245,15 @@ function handleSearch() {
     scrollToCurrentMatch();
   } else {
     currentMatchIndex = -1;
-    pre.innerHTML = originalHTML;
+    // Clear and set content safely
+    while (pre.firstChild) {
+      pre.removeChild(pre.firstChild);
+    }
+    const tempSpan = document.createElement('span');
+    tempSpan.innerHTML = originalHTML; // Safe: originalHTML is from syntaxHighlight which sanitizes
+    while (tempSpan.firstChild) {
+      pre.appendChild(tempSpan.firstChild);
+    }
   }
   
   updateMatchCounter();
@@ -278,13 +301,23 @@ function highlightMatches(html, searchTerm) {
     resultHTML = highlightInHTML(html, searchTerm, currentMatchIndex);
   }
   
-  pre.innerHTML = resultHTML;
+  // Clear and set content safely
+  while (pre.firstChild) {
+    pre.removeChild(pre.firstChild);
+  }
+  const tempSpan = document.createElement('span');
+  tempSpan.innerHTML = resultHTML; // Safe: resultHTML is from highlightInHTML which creates safe markup
+  while (tempSpan.firstChild) {
+    pre.appendChild(tempSpan.firstChild);
+  }
 }
 
 // Helper to highlight search terms in HTML while preserving structure
 function highlightInHTML(html, searchTerm, currentIndex) {
   const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = html;
+  const tempContainer = document.createElement('span');
+  tempContainer.innerHTML = html; // Safe: html is from syntaxHighlight which sanitizes
+  tempDiv.appendChild(tempContainer);
   
   const walker = document.createTreeWalker(
     tempDiv,
@@ -316,17 +349,31 @@ function highlightInHTML(html, searchTerm, currentIndex) {
     let result = '';
     let match;
     
+    const fragment = document.createDocumentFragment();
+    
     while ((match = regex.exec(text)) !== null) {
-      result += text.substring(lastIndex, match.index);
-      const className = matchCount === currentIndex ? 'search-highlight current' : 'search-highlight';
-      result += `<mark class="${className}">${text.substring(match.index, match.index + searchTerm.length)}</mark>`;
+      // Add text before match
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+      }
+      
+      // Add highlighted match
+      const mark = document.createElement('mark');
+      mark.className = matchCount === currentIndex ? 'search-highlight current' : 'search-highlight';
+      mark.textContent = text.substring(match.index, match.index + searchTerm.length);
+      fragment.appendChild(mark);
+      
       lastIndex = match.index + searchTerm.length;
       matchCount++;
     }
-    result += text.substring(lastIndex);
+    
+    // Add remaining text
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+    }
     
     const span = document.createElement('span');
-    span.innerHTML = result;
+    span.appendChild(fragment);
     node.parentNode.replaceChild(span, node);
   });
   
