@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
   "name": "JSON Formatter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Format and view JSON with syntax highlighting in a sidebar",
   "permissions": [
     "contextMenus",
     "activeTab",
-    "storage"
+    "storage",
+    "clipboardWrite"
   ],
   "background": {
     "scripts": ["background.js"]

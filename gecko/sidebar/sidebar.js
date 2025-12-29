@@ -119,10 +119,12 @@ function setupSearchHandlers() {
   const searchInput = document.getElementById('searchInput');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const copyBtn = document.getElementById('copyBtn');
   
   searchInput.addEventListener('input', handleSearch);
   prevBtn.addEventListener('click', goToPreviousMatch);
   nextBtn.addEventListener('click', goToNextMatch);
+  copyBtn.addEventListener('click', copyFormattedJSON);
   
   // Keyboard shortcuts for search navigation
   searchInput.addEventListener('keydown', (e) => {
@@ -135,6 +137,60 @@ function setupSearchHandlers() {
       e.preventDefault();
     }
   });
+}
+
+// Copy formatted JSON to clipboard
+async function copyFormattedJSON() {
+  const copyBtn = document.getElementById('copyBtn');
+  
+  try {
+    if (!currentJsonString) {
+      console.error('No JSON to copy');
+      return;
+    }
+    
+    // Copy to clipboard
+    await navigator.clipboard.writeText(currentJsonString);
+    
+    // Visual feedback
+    copyBtn.classList.add('copied');
+    copyBtn.textContent = '';
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      copyBtn.classList.remove('copied');
+      copyBtn.textContent = '📋';
+    }, 2000);
+    
+    console.log('JSON copied to clipboard');
+  } catch (error) {
+    console.error('Failed to copy JSON:', error);
+    
+    // Fallback for older browsers
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = currentJsonString;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      // Visual feedback
+      copyBtn.classList.add('copied');
+      copyBtn.textContent = '';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.textContent = '📋';
+      }, 2000);
+      
+      console.log('JSON copied to clipboard (fallback method)');
+    } catch (fallbackError) {
+      console.error('Fallback copy method also failed:', fallbackError);
+      alert('Failed to copy JSON to clipboard');
+    }
+  }
 }
 
 // Handle search input

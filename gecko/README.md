@@ -9,6 +9,7 @@ A Firefox extension that allows users to select JSON text on any webpage and vie
 ✅ **Error Handling**: Clear error messages for invalid JSON
 ✅ **Search Functionality**: Search within formatted JSON with match highlighting
 ✅ **Navigation**: Navigate between search matches with keyboard shortcuts or buttons
+✅ **Copy to Clipboard**: One-click copy of formatted JSON
 ✅ **Dark Theme**: VS Code-inspired dark theme for comfortable viewing
 
 ## Installation
@@ -59,6 +60,11 @@ Once JSON is displayed in the sidebar:
 - Or use **Enter** to go to the next match and **Shift+Enter** for previous match
 - The current match is highlighted in orange, other matches in brown
 
+### Copy to Clipboard
+
+- Click the **📋** button in the search toolbar to copy the formatted JSON to your clipboard
+- A green checkmark will appear briefly to confirm the copy was successful
+
 ## Project Structure
 
 ```
@@ -91,6 +97,7 @@ gecko/
 - `contextMenus`: Create context menu items
 - `activeTab`: Access to the active tab's content
 - `storage`: Store selected JSON temporarily
+- `clipboardWrite`: Copy formatted JSON to clipboard
 
 ## Browser Compatibility
 
@@ -98,7 +105,6 @@ gecko/
 
 ## Future Enhancements
 
-- Copy formatted JSON to clipboard
 - Collapse/expand JSON objects and arrays
 - Theme customization (light/dark modes)
 - Export formatted JSON to file

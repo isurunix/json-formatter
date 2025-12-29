@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter Extension - Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section h2 {
+            color: #007acc;
+            margin-top: 0;
+        }
+        .json-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            user-select: text;
+            cursor: text;
+        }
+        .instructions {
+            background: #e8f4fd;
+            border-left: 4px solid #007acc;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 JSON Formatter Extension - Test Page</h1>
+    
+    <div class="instructions">
+        <strong>How to Test:</strong>
+        <ol>
+            <li>Select any JSON text below by clicking and dragging</li>
+            <li>Right-click on the selected text</li>
+            <li>Click "View Formatted JSON" from the context menu</li>
+            <li>The sidebar should open with formatted JSON</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 1: Simple Valid JSON</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"name": "John Doe", "age": 30, "email": "john@example.com", "active": true}</div>
+        <p><strong>Expected:</strong> Should display formatted JSON with syntax highlighting</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Nested JSON Object</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"user": {"id": 123, "name": "Alice Smith", "roles": ["admin", "editor"], "settings": {"theme": "dark", "notifications": true}}, "timestamp": "2024-01-15T10:30:00Z"}</div>
+        <p><strong>Expected:</strong> Should display nested structure with proper indentation</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: JSON Array</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">[{"id": 1, "name": "Product A", "price": 29.99}, {"id": 2, "name": "Product B", "price": 49.99}, {"id": 3, "name": "Product C", "price": 19.99}]</div>
+        <p><strong>Expected:</strong> Should display array with formatted objects</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: JSON with Various Data Types</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"string": "hello world", "number": 42, "float": 3.14159, "boolean_true": true, "boolean_false": false, "null_value": null, "array": [1, 2, 3], "object": {"nested": "value"}}</div>
+        <p><strong>Expected:</strong> All data types should be highlighted with different colors</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 5: Invalid JSON (Missing Quote)</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"name: "Invalid JSON", "age": 30}</div>
+        <p><strong>Expected:</strong> Should display error message in sidebar</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 6: Invalid JSON (Trailing Comma)</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"name": "Test", "value": 123,}</div>
+        <p><strong>Expected:</strong> Should display error message</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 7: Invalid JSON (Incomplete)</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"name": "Incomplete", "data": {</div>
+        <p><strong>Expected:</strong> Should display error message</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 8: Large JSON Object (Search Test)</h2>
+        <p>Select the JSON below and test the search functionality:</p>
+        <div class="json-block">{"users": [{"id": 1, "username": "alice", "email": "alice@example.com", "active": true}, {"id": 2, "username": "bob", "email": "bob@example.com", "active": false}, {"id": 3, "username": "charlie", "email": "charlie@example.com", "active": true}], "metadata": {"total": 3, "page": 1, "limit": 10}, "timestamp": "2024-01-15T10:30:00Z"}</div>
+        <p><strong>Test Search:</strong> Try searching for "alice", "email", "true", "active" to test search and navigation</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 9: JSON with Special Characters</h2>
+        <p>Select the JSON below:</p>
+        <div class="json-block">{"message": "Hello \"World\"!", "path": "C:\\Users\\Documents\\file.txt", "unicode": "こんにちは", "newline": "Line 1\nLine 2"}</div>
+        <p><strong>Expected:</strong> Special characters should be properly escaped and displayed</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 10: Empty JSON</h2>
+        <p>Select each JSON below:</p>
+        <div class="json-block">{}</div>
+        <br>
+        <div class="json-block">[]</div>
+        <p><strong>Expected:</strong> Should display empty object/array correctly</p>
+    </div>
+
+    <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 4px; margin: 20px 0;">
+        <strong>✅ Testing Checklist:</strong>
+        <ul>
+            <li>[ ] Valid JSON displays with syntax highlighting</li>
+            <li>[ ] Invalid JSON shows error message</li>
+            <li>[ ] Search functionality works</li>
+            <li>[ ] Navigation buttons (↑/↓) work</li>
+            <li>[ ] Match counter updates correctly</li>
+            <li>[ ] Enter/Shift+Enter keyboard shortcuts work</li>
+            <li>[ ] Current match is highlighted differently</li>
+            <li>[ ] Auto-scroll to current match works</li>
+        </ul>
+    </div>
+
+</body>
+</html>
