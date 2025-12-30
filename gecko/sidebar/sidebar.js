@@ -60,7 +60,12 @@ function displayJSON(jsonString) {
       jsonDisplay.removeChild(jsonDisplay.firstChild);
     }
     const pre = document.createElement('pre');
-    pre.innerHTML = formattedHTML; // Safe here as formattedHTML is sanitized by syntaxHighlight
+    // Use DOMParser to safely parse HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(formattedHTML, 'text/html');
+    while (doc.body.firstChild) {
+      pre.appendChild(doc.body.firstChild);
+    }
     jsonDisplay.appendChild(pre);
     jsonDisplay.style.display = 'block';
     errorDisplay.style.display = 'none';
@@ -231,7 +236,12 @@ function handleSearch() {
   
   const tempDiv = document.createElement('div');
   const tempPre = document.createElement('pre');
-  tempPre.innerHTML = originalHTML; // Safe: originalHTML is from syntaxHighlight which sanitizes
+  // Use DOMParser to safely parse HTML
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(originalHTML, 'text/html');
+  while (doc.body.firstChild) {
+    tempPre.appendChild(doc.body.firstChild);
+  }
   tempDiv.appendChild(tempPre);
   const textContent = tempDiv.textContent;
   
@@ -249,10 +259,10 @@ function handleSearch() {
     while (pre.firstChild) {
       pre.removeChild(pre.firstChild);
     }
-    const tempSpan = document.createElement('span');
-    tempSpan.innerHTML = originalHTML; // Safe: originalHTML is from syntaxHighlight which sanitizes
-    while (tempSpan.firstChild) {
-      pre.appendChild(tempSpan.firstChild);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(originalHTML, 'text/html');
+    while (doc.body.firstChild) {
+      pre.appendChild(doc.body.firstChild);
     }
   }
   
@@ -265,7 +275,11 @@ function highlightMatches(html, searchTerm) {
   const pre = jsonDisplay.querySelector('pre');
   
   const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = html;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  while (doc.body.firstChild) {
+    tempDiv.appendChild(doc.body.firstChild);
+  }
   const text = tempDiv.textContent;
   
   const parts = [];
@@ -305,19 +319,21 @@ function highlightMatches(html, searchTerm) {
   while (pre.firstChild) {
     pre.removeChild(pre.firstChild);
   }
-  const tempSpan = document.createElement('span');
-  tempSpan.innerHTML = resultHTML; // Safe: resultHTML is from highlightInHTML which creates safe markup
-  while (tempSpan.firstChild) {
-    pre.appendChild(tempSpan.firstChild);
+  const parser2 = new DOMParser();
+  const doc2 = parser2.parseFromString(resultHTML, 'text/html');
+  while (doc2.body.firstChild) {
+    pre.appendChild(doc2.body.firstChild);
   }
 }
 
 // Helper to highlight search terms in HTML while preserving structure
 function highlightInHTML(html, searchTerm, currentIndex) {
   const tempDiv = document.createElement('div');
-  const tempContainer = document.createElement('span');
-  tempContainer.innerHTML = html; // Safe: html is from syntaxHighlight which sanitizes
-  tempDiv.appendChild(tempContainer);
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  while (doc.body.firstChild) {
+    tempDiv.appendChild(doc.body.firstChild);
+  }
   
   const walker = document.createTreeWalker(
     tempDiv,
@@ -453,7 +469,15 @@ function clearSearch() {
   
   if (pre) {
     const originalHTML = syntaxHighlight(getOriginalJSON());
-    pre.innerHTML = originalHTML;
+    // Clear and set content safely
+    while (pre.firstChild) {
+      pre.removeChild(pre.firstChild);
+    }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(originalHTML, 'text/html');
+    while (doc.body.firstChild) {
+      pre.appendChild(doc.body.firstChild);
+    }
   }
   
   updateMatchCounter();
